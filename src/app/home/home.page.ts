@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ToastController } from '@ionic/angular';
+import { IonCard, ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -19,7 +19,19 @@ export class HomePage {
 
   onCalculate() {
     const imc = this.weight / (this.height * this.height);
-    this.showMessage(`IMC = ${imc.toFixed(2)}`);
+    let message = ""
+    if(imc < 18.5){
+       message = `Seu IMC é de ${imc.toFixed(2)}, e está classificado como MAGREZA, grau de obesidade 0.`
+    }else if(18.5 <= imc && imc <= 24.9 ){
+       message = `Seu IMC é de ${imc.toFixed(2)}, e está classificado como NORMAL, grau de obesidade 0.`
+    }else if(24.9 < imc && imc <= 29.9 ){
+       message = `Seu IMC é de ${imc.toFixed(2)}, e está classificado como SOBREPESO, grau de obesidade I.`
+    }else if(29.9 < imc && imc <= 39.9){
+       message = `Seu IMC é de ${imc.toFixed(2)}, e está classificado como OBESIDADE, grau de obesidade II.`
+    }else{
+       message = `Seu IMC é de ${imc.toFixed(2)}, e está classificado como OBESIDADE GRAVE, grau de obesidade III.`
+    }
+    this.showMessage(message);
   }
 
   async showMessage(msg: string) {
